@@ -138,15 +138,75 @@ const states = [{
 }];
 
 
-function App() 
-{
-	// Do not alter/remove main div
-	return (
-	<div id="main">
-		
-	</div>
-	);
-}
+function App() {
+  const [selectedState, setSelectedState] = useState(0);
+  const [selectedCity, setSelectedCity] = useState(0);
+  const [selectedLandmark, setSelectedLandmark] = useState(0);
 
+  const handleStateChange = (event) => {
+    setSelectedState(event.target.value);
+    setSelectedCity(0);
+    setSelectedLandmark(0);
+  };
+
+  const handleCityChange = (event) => {
+    setSelectedCity(event.target.value);
+    setSelectedLandmark(0);
+  };
+
+  const handleLandmarkChange = (event) => {
+    setSelectedLandmark(event.target.value);
+  };
+
+  const stateOptions = data.map((state, index) => (
+    <option key={index} value={index}>
+      {state.name}
+    </option>
+  ));
+
+  const cityOptions = data[selectedState].city.map((city, index) => (
+    <option key={index} value={index}>
+      {city.name}
+    </option>
+  ));
+
+  const landmarkOptions = data[selectedState].city[selectedCity].landmarks.map(
+    (landmark, index) => (
+      <option key={index} value={index}>
+        {landmark.name}
+      </option>
+    )
+  );
+
+  const selectedStateName = data[selectedState].name;
+  const selectedStateDescription = data[selectedState].description;
+  const selectedCityName = data[selectedState].city[selectedCity].name;
+  const selectedCityDescription = data[selectedState].city[selectedCity].description;
+  const selectedLandmarkName = data[selectedState].city[selectedCity].landmarks[selectedLandmark].name;
+  const selectedLandmarkDescription = data[selectedState].city[selectedCity].landmarks[selectedLandmark].description;
+
+  return (
+    <div id="main">
+      <select id="state" value={selectedState} onChange={handleStateChange}>
+        {stateOptions}
+      </select>
+      <select id="city" value={selectedCity} onChange={handleCityChange}>
+        {cityOptions}
+      </select>
+      <select id="landmark" value={selectedLandmark} onChange={handleLandmarkChange}>
+        {landmarkOptions}
+      </select>
+
+      <div id="state-name">{selectedStateName}</div>
+      <div id="state-description">{selectedStateDescription}</div>
+
+      <div id="city-name">{selectedCityName}</div>
+      <div id="city-description">{selectedCityDescription}</div>
+
+      <div id="landmark-name">{selectedLandmarkName}</div>
+      <div id="landmark-description">{selectedLandmarkDescription}</div>
+    </div>
+  );
+}
 
 export default App;
