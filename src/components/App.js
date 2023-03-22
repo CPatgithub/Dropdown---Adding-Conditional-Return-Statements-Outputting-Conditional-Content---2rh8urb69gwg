@@ -2,7 +2,7 @@ import React, { useState,useReducer } from "react";
 import "./../styles/App.css";
 
 
-const states = [{
+const data = [{
 	name : "Madhya Pradesh",
 	description:"Madhya Pradesh, a large state in central India, retains landmarks from eras throughout Indian history.",
 	city :[{
